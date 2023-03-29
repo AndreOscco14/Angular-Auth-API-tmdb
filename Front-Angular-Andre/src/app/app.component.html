@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 5%;">
 <div class="container">
   <a class="navbar-brand" href="#">Cine Armadillo</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,11 +6,13 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav ml-auto">
-      <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-link" routerLink="/signin">Sign In</a>
-      <a class="nav-link" routerLink="/signup">Sign Up</a>
+      <!-- <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a> -->
+      <a class="nav-link" routerLink="/signin" routerLinkActive="active">Sign In</a>
+      <a class="nav-link" routerLink="/signup" routerLinkActive="active">Sign Up</a>
     </div>
   </div>
 </div>
 </nav>
-<router-outlet></router-outlet>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
