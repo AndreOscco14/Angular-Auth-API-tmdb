@@ -7,4 +7,4 @@ app.use('/api',require('./routes/index'))
 
 
 app.listen(3000);
-console.log('Servidor escuchando en puero',3000);
+console.log('Servidor escuchando en puerto',3000);

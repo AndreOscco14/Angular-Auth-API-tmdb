@@ -6,11 +6,11 @@ const jwt = require('jsonwebtoken');
 
 router.get('/', (req, res) => res.send('Hello world') )
 
-
+//* Registrarse
 router.post('/sign-up',async (req, res) => {
     const {nameuser, lastname, email , password, birth} = req.body;
     const newUser = new user({lastname,email, password, birth: new Date(birth), nameuser});
-    console.log(newUser);
+    // console.log(newUser);
      await newUser.save()
      const token = jwt.sign({ _id: newUser._id}, 'secretkey')
      res.status(200).json({token})
@@ -28,4 +28,72 @@ router.post('/signin', async (req, res) => {
     const token = jwt.sign({_id: user._id}, 'secretkey');
     return res.status(200).json({token})
 })
+
+
+//* Devolver Datos (PRUEBAS TOKENS PRIVACIDAD)
+router.get('/tasks', (req, res) => {
+    res.json([ 
+        {
+        _id: 1,
+        name: 'Task one',
+        description: "2019-11-17T20:39:05.211Z"
+        },
+        {
+            _id: 2,
+            name: 'Task two',
+            description: "2019-11-17T20:39:05.211Z"
+            }
+    ])
+})
+
+
+router.get('/private-tasks',verifyToken, (req,res) => {
+    res.json([
+        {
+            _id: 1,
+            name: 'Task one',
+            description: "2019-11-17T20:39:05.211Z"
+            },
+            {
+             _id: 2,
+             name: 'Task two',
+             description: "2019-11-17T20:39:05.211Z"
+            }
+    ])
+})
+
+router.get('/profile', verifyToken, (req, res) => {
+    res.send(req.userId);
+})
+
+
+
+//* Verificar token , si existe continua y sino se envia un error.
+function verifyToken(req, res, next){
+        try {
+            // console.log(req.headers.authorization);
+
+            if(!req.headers.authorization){
+                return res.status(401).send('Unthorize Request No tienes autorización');
+            }
+
+        let token = req.headers.authorization.split(' ')[1]
+            if(token == 'null'){
+                return res.status(401).send('Unathorize tokennn No tienes autorización')
+            }
+
+        const data =  jwt.verify(token, 'secretkey')
+
+            if (!data) {
+                return res.status(401).send('Unauhtorized Request');
+            }
+            req.userId = data._id;
+            next();
+
+        } catch (error) {
+            return res.status(401).send('Unauhtorized Request');
+        }
+ 
+}
+
 module.exports = router
