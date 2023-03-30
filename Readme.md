@@ -2,7 +2,7 @@
 André Oscco Carbajal
 
 
- # ------------------------------- PREGUNTAS -------------------------------
+ #  PREGUNTAS
 <!-- Como has visto, la llamada que has implementado para obtener las
 películas que están en cartelera puede recibir un parámetro “page”. No es
 objeto de esta prueba implementar paginación, pero si tuvieses que
@@ -24,7 +24,7 @@ el array una vez y crea un nuevo array que contiene los datos que cumplen con la
 condición del filtrado.
 
 const filteredMovies = movies.filter(movie => movie.vote_average >= 6);
-# -------------------------------------------------------------------------
+# -----
 
 
 # Librerías.
