@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-signin',
@@ -7,4 +10,30 @@ import { Component } from '@angular/core';
 })
 export class SigninComponent {
 
+constructor(
+  private loginService: LoginService,
+  private router: Router
+){
+
+}
+
+signInForm = new FormGroup({
+  email: new FormControl('', [Validators.required, Validators.email]),
+  password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+});
+
+
+  onSubmit(){
+    const userSignIn = this.signInForm.value
+
+    console.log(this.signInForm.value)
+    this.loginService.signIn(userSignIn).subscribe((res:any) => {
+      console.log(res);
+      localStorage.setItem('token', res.token);
+      this.router.navigate(['/private']);
+    }, error => {
+      console.log(error);
+      
+    })
+  }
 }

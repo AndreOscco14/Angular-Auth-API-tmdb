@@ -1,1 +1,61 @@
-<p>private works!</p>
+<!-- <div *ngIf="nowPlayingMovies">
+    <h2>Now Playing Movies</h2>
+    <div class="card-container">
+      <div *ngFor="let movie of nowPlayingMovies" class="card">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}">
+        <div class="card-body">
+          <h3>{{ movie.title }}</h3>
+          <p>{{ movie.release_date }}</p>
+          <p>{{ movie.overview }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="popularMovies">
+    <h2>Popular Movies</h2>
+    <div class="card-container">
+      <div *ngFor="let movie of popularMovies" class="card">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}">
+        <div class="card-body">
+          <h3>{{ movie.title }}</h3>
+          <p>{{ movie.release_date }}</p>
+          <p>{{ movie.overview }}</p>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+<h1 class="text-center">POPULARES</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-3" *ngFor="let movie of nowPlayingMovies">
+        <div class="card">
+          <img class="card-img-top" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{ movie.title }}</h5>
+            <p class="card-text">{{ movie.overview }}</p>
+            <a href="#" class="btn btn-primary">Ver detalles</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h1 class="text-center">POPULARES</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-3" *ngFor="let moviePopu of popularMovies">
+        <div class="card">
+          <img class="card-img-top" [src]="'https://image.tmdb.org/t/p/w500' + moviePopu.poster_path" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{ moviePopu .title }}</h5>
+            <p class="card-text">{{ moviePopu .overview }}</p>
+            <a href="#" class="btn btn-primary">Ver detalles</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

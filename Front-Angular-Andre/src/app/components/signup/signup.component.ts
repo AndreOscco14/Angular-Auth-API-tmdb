@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
+import { Router} from '@angular/router'
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -9,7 +11,8 @@ import { LoginService } from 'src/app/services/login.service';
 export class SignupComponent {
 
   constructor(
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router
   ){
   }
 
@@ -22,15 +25,15 @@ export class SignupComponent {
   });
 
   onSubmit() {
-    console.log(this.signUpForm.value);
+    // console.log(this.signUpForm.value);
     const user = this.signUpForm.value;
 
-
-    this.loginService.signUp(user).subscribe(response => {
-      console.log(response);
+    this.loginService.signUp(user).subscribe((res:any) => {
+      console.log(res);
+      localStorage.setItem('token', res.token);
+       this.router.navigate(['/signin'])
     }, error => {
       console.log(error);
-      
     })
   }
 }

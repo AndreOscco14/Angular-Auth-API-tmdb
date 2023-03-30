@@ -8,8 +8,10 @@ import { SigninComponent } from './components/signin/signin.component';
 import { PrivateComponent } from './components/private/private.component';
 import { FormGroup } from '@material-ui/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { AuthGuard } from './auth.guard';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,13 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthGuard,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
