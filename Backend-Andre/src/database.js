@@ -10,9 +10,6 @@ const db = new sqlite3.Database('./database.sqlite', (err) => {
 
 module.exports = db;
 
-
-
-
 // * Conexión con MongoDB (Mongoose)
 // const mongoose = require('mongoose');
 

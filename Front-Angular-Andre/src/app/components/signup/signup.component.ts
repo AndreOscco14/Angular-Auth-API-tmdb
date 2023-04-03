@@ -10,6 +10,9 @@ import { Router} from '@angular/router'
 })
 export class SignupComponent {
 
+  registroExitoso = false; 
+
+
   constructor(
     private loginService: LoginService,
     private router: Router
@@ -17,14 +20,26 @@ export class SignupComponent {
   }
 
   signUpForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    lastname: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    name: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]),
+    lastname: new FormControl('',[Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]),
+    email: new FormControl('', [  Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}') ]),
+    password: new FormControl('', [Validators.required, Validators.minLength(3)]),
     birth: new FormControl('', Validators.required)
   });
 
+  get name() { return this.signUpForm.get('name'); }
+  get lastname() { return this.signUpForm.get('lastname'); }
+  get email() { return this.signUpForm.get('email'); }
+  get password() { return this.signUpForm.get('password'); }
+  get birth() { return this.signUpForm.get('birth'); }
+
+
   onSubmit() {
+    if (this.signUpForm.invalid) {
+      this.signUpForm.markAllAsTouched();
+      return;
+    }
+
     // console.log(this.signUpForm.value);
     const user = this.signUpForm.value;
     console.log(user);
@@ -32,10 +47,15 @@ export class SignupComponent {
     this.loginService.signUp(user).subscribe((res:any) => {
       console.log(res);
       localStorage.setItem('token', res.token);
-       this.router.navigate(['/signin'])
+      this.registroExitoso = true;
+     // Añadimos un retraso de 2 segundos antes de redirigir a la página de inicio de sesión
+     setTimeout(() => {
+      this.router.navigate(['/signin']);
+      // alert('¡Te has registrado exitosamente!');
+    }, 2000);
     }, error => {
       console.log(error);
-      alert('Ha ocurrido un error al registrar el usuario.');
+      alert('Ha ocurrido un error al registrar, intente con otro correo.');
     })
   }
 }

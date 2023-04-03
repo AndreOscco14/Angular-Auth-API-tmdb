@@ -10,24 +10,32 @@
             <div class="card-body">
                 <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
-                      <input type="text" formControlName="name" class="form-control" placeholder="Nombre" required autofocus>
+                      <input type="text" formControlName="name" class="form-control" placeholder="Nombre" required >
+                      <small class="text-danger" *ngIf="name?.touched && name?.invalid && (name?.errors?.['required'] || name?.errors?.['pattern'])">El nombre es requerido y debe contener sólo letras</small>
                     </div>
                     <div class="form-group">
                       <input type="text" formControlName="lastname" class="form-control" placeholder="Apellido" required>
+                      <small class="text-danger" *ngIf="lastname?.touched && lastname?.invalid && (lastname?.errors?.['required'] || lastname?.errors?.['pattern'])">Apellido es requerido</small>
                     </div>
                     <div class="form-group">
                       <input type="text" formControlName="email" class="form-control" placeholder="Email" required>
+                      <small class="text-danger" *ngIf="email?.touched && email?.invalid && (email?.errors?.['required'] || email?.errors?.['pattern'])">E-mail obligatorio (Tiene que se válido) </small>
                     </div>
                     <div class="form-group">
                       <input type="password" formControlName="password" class="form-control" placeholder="Contraseña" required>
+                      <small class="text-danger" *ngIf="password?.touched && password?.invalid && (password?.errors?.['required'] || password?.errors?.['pattern'])">Campo obligatorio</small>
                     </div>
                     <div class="form-group">
                       <input type="date" formControlName="birth" class="form-control" placeholder="Fecha de Nacimiento" required>
+                      <small class="text-danger" *ngIf="birth?.touched && birth?.invalid && (birth?.errors?.['required'] || birth?.errors?.['pattern'])">El nombre es requerido y debe contener sólo letras</small>
                     </div>
-                    <button type="submit" class="btn btn-dark btn-block">Registrarse</button>
+                    <button type="submit" [disabled]="!signUpForm.valid" class="btn btn-dark btn-block" autofocus>Registrarse</button>
                   </form>
-                  
             </div>
+        </div>
+
+        <div *ngIf="registroExitoso" style="margin-top: 5%;" class="alert alert-success" role="alert">
+          ¡Registro exitoso! Ya puedes iniciar sesión.
         </div>
     </div>
 </div>

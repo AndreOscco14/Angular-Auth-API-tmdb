@@ -37,7 +37,7 @@ router.post('/sign-up', (req, res) => {
 // })
 
 
-//*--------------------- Comprobar si el correo está registrado-----------------
+//*--------------------- Comprobar si el correo está registrado SQLite-----------------
 router.post('/signin', (req, res) => {
     const { email, password } = req.body;
     const sql = 'SELECT * FROM users WHERE email = ?';
@@ -136,26 +136,5 @@ function verifyToken(req, res, next){
       return res.status(401).send('Unauthorized Request');
     }
   }
-
-// function verifyToken(req, res, next){
-//         try {
-//              console.log(req.headers.authorization);
-//             if(!req.headers.authorization){
-//                 return res.status(401).send('Unthorize Request No tienes autorización');
-//             }
-//         let token = req.headers.authorization.split(' ')[1]
-//             if(token == 'null'){
-//                 return res.status(401).send('Unathorize tokennn No tienes autorización')
-//             }
-//         const data =  jwt.verify(token, 'secretkey')
-//             if (!data) {
-//                 return res.status(401).send('Unauhtorized Request');
-//             }
-//             req.userId = data._id;
-//             next();
-//         } catch (error) {
-//             return res.status(401).send('Unauhtorized Request');
-//         }
-// }
 
 module.exports = router
