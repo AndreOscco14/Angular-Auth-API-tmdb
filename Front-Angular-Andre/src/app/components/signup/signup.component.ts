@@ -27,13 +27,15 @@ export class SignupComponent {
   onSubmit() {
     // console.log(this.signUpForm.value);
     const user = this.signUpForm.value;
-
+    console.log(user);
+    
     this.loginService.signUp(user).subscribe((res:any) => {
       console.log(res);
       localStorage.setItem('token', res.token);
        this.router.navigate(['/signin'])
     }, error => {
       console.log(error);
+      alert('Ha ocurrido un error al registrar el usuario.');
     })
   }
 }

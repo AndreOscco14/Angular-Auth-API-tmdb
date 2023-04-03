@@ -23,17 +23,35 @@ signInForm = new FormGroup({
 });
 
 
-  onSubmit(){
-    const userSignIn = this.signInForm.value
+  // onSubmit(){
+  //   const userSignIn = this.signInForm.value
+  //   console.log(this.signInForm.value)
 
-    console.log(this.signInForm.value)
-    this.loginService.signIn(userSignIn).subscribe((res:any) => {
-      console.log(res);
+  //   this.loginService.signIn(userSignIn).subscribe((res:any) => {
+  //     console.log(res);
+  //     localStorage.setItem('token', res.token);
+  //     this.router.navigate(['/private']);
+  //   }, error => {
+  //     console.log(error);
+      
+  //   })
+  // }
+
+  onSubmit() {
+    const userSignIn = this.signInForm.value;
+  
+    this.loginService.signIn(userSignIn).subscribe((res: any) => {
       localStorage.setItem('token', res.token);
       this.router.navigate(['/private']);
-    }, error => {
-      console.log(error);
-      
-    })
+    }, (err: any) => {
+      if (err.status === 401) {
+        // Si la autenticación falla, muestra un mensaje de error
+        console.log('Correo electrónico o contraseña incorrectos');
+      } else {
+        // Si se produce un error en el servidor, muestra un mensaje genérico
+        console.log('Se produjo un error al intentar iniciar sesión');
+      }
+    });
   }
+  
 }
