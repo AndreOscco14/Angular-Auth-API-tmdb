@@ -12,10 +12,10 @@ export class PrivateComponent implements OnInit {
   nowPlayingMovies: any;
   popularMovies: any;
   creditsMovies: any;
+  userData: any;
 
   constructor(
     private loginService: LoginService,
-  
   ){ }
 
   ngOnInit(): void {
@@ -23,15 +23,14 @@ export class PrivateComponent implements OnInit {
       this.nowPlayingMovies = data.results;
     });
 
+    // Obtener datos del usuario y mostrarlos
+    this.loginService.getUserData().subscribe((res: any) => {
+      this.userData = res;
+    });
+
     this.loginService.getPopular().subscribe((data: any) => {
       this.popularMovies = data.results;
     });
 
-
-    // this.loginService.getCredits(123).subscribe((data: any) => {
-    //   this.creditsMovies = data.results
-    // })
   }
-
-
 }

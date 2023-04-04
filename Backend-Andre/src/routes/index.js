@@ -1,11 +1,8 @@
 const { Router } = require('express');
 const router = Router();
 
-// const user = require('../models/user');
 const db = require('../models/user');
 const jwt = require('jsonwebtoken');
-
-// router.get('/', (req, res) => res.send('Hello world') )
 
 //*----------------------- Registrarse SQLite---------------------------
 router.post('/sign-up', (req, res) => {
@@ -73,47 +70,47 @@ router.post('/signin', (req, res) => {
 //     return res.status(200).json({token})
 // })
 
-//*----------------- Devolver Datos (PRUEBAS TOKENS PRIVACIDAD)------------------
-router.get('/tasks', (req, res) => {
-    res.json([ 
-        {
-        _id: 1,
-        name: 'Task one',
-        description: "2019-11-17T20:39:05.211Z"
-        },
-        {
-            _id: 2,
-            name: 'Task two',
-            description: "2019-11-17T20:39:05.211Z"
-            }
-    ])
-})
-
-router.get('/private-tasks',verifyToken, (req,res) => {
-    res.json([
-        {
-            _id: 1,
-            name: 'Task one',
-            description: "2019-11-17T20:39:05.211Z"
-            },
-            {
-             _id: 2,
-             name: 'Task two',
-             description: "2019-11-17T20:39:05.211Z"
-            }
-    ])
-})
 
 router.get('/profile', verifyToken, (req, res) => {
     res.send(req.userId);
 })
+
+
+//* ------------------------- Enviar datos Usuarios al Front ---------------------------
+router.get('/user-data', authenticateToken, (req, res) => {
+    const userEmail = req.user.email;
+    const sql = 'SELECT nameuser, lastname, email, birth FROM users WHERE email = ?';
+    const values = [userEmail];
+  
+    db(sql, values, (err, rows) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send('Error al obtener datos de usuario');
+      } else {
+        const user = rows[0];
+        res.status(200).json(user);
+      }
+    });
+  });
+  
+  function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token == null) return res.sendStatus(401);
+  
+    jwt.verify(token, 'secretkey', (err, user) => {
+      if (err) return res.sendStatus(403);
+      req.user = user;
+      next();
+    });
+  }
+  
 
 //* ------------Verificar token , si existe continua y sino se envia un error.-------------
 
 function verifyToken(req, res, next){
     try {
       // console.log(req.headers.authorization);
-  
       if(!req.headers.authorization){
         return res.status(401).send('Unauthorized Request. No tienes autorización');
       }

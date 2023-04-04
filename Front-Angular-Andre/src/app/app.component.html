@@ -8,8 +8,8 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
         <ng-container *ngIf="!loginService.loggedIn(); else loggedIn">
-          <a class="nav-link" routerLink="/signin" routerLinkActive="active">Sign In</a>
-          <a class="nav-link" routerLink="/signup" routerLinkActive="active">Sign Up</a>
+          <a class="nav-link" routerLink="/signin" routerLinkActive="active">Iniciar Sesión</a>
+          <a class="nav-link" routerLink="/signup" routerLinkActive="active">Registrarse</a>
         </ng-container>
         <ng-template #loggedIn>
           <li class="nav-item">

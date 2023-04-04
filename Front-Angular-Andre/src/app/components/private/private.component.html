@@ -1,4 +1,13 @@
-<h1 class="text-center">Now Playing Movies</h1>
+
+<div class="container card">
+  <div class="card-body">
+    <p>Bienvenido , <span class="font-weight-bold">{{ userData.nameuser }} {{ userData.lastname}}!</span> </p>
+    <p>Correo: <span class="font-weight-bold">{{ userData.email }}</span></p>
+    <p>Fecha de naciemiento: <span class="font-weight-bold">{{ userData.birth}}</span></p>
+  </div>
+</div>
+
+<h1 class="text-center font-weight-bold" style="margin-top: 5%;">Now Playing Movies</h1>
  <div class="container">
    <div class="row">
      <div class="col-sm-6 col-md-4 col-lg-3 mb-3" *ngFor="let movie of nowPlayingMovies">
@@ -35,7 +44,7 @@
    </div>
  </div>
  
-  <h1 class="text-center">Popular Movies</h1>
+  <h1 class="text-center font-weight-bold mt-5">Popular Movies</h1>
   <div class="container" style="margin-bottom: 20%;">
     <div class="row">
       <div class="col-sm-6 col-md-4 col-lg-3 mb-3" *ngFor="let moviePopu of popularMovies">

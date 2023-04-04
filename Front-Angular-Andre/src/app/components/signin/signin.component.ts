@@ -16,26 +16,10 @@ constructor(
 ){
 
 }
-
 signInForm = new FormGroup({
   email: new FormControl('', [Validators.required, Validators.email]),
   password: new FormControl('', [Validators.required, Validators.minLength(6)]),
 });
-
-
-  // onSubmit(){
-  //   const userSignIn = this.signInForm.value
-  //   console.log(this.signInForm.value)
-
-  //   this.loginService.signIn(userSignIn).subscribe((res:any) => {
-  //     console.log(res);
-  //     localStorage.setItem('token', res.token);
-  //     this.router.navigate(['/private']);
-  //   }, error => {
-  //     console.log(error);
-      
-  //   })
-  // }
 
   onSubmit() {
     const userSignIn = this.signInForm.value;

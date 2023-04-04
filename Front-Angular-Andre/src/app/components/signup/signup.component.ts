@@ -12,7 +12,6 @@ export class SignupComponent {
 
   registroExitoso = false; 
 
-
   constructor(
     private loginService: LoginService,
     private router: Router
@@ -40,12 +39,9 @@ export class SignupComponent {
       return;
     }
 
-    // console.log(this.signUpForm.value);
     const user = this.signUpForm.value;
-    console.log(user);
     
     this.loginService.signUp(user).subscribe((res:any) => {
-      console.log(res);
       localStorage.setItem('token', res.token);
       this.registroExitoso = true;
      // Añadimos un retraso de 2 segundos antes de redirigir a la página de inicio de sesión
